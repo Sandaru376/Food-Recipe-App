@@ -1,10 +1,16 @@
-import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BsFillStopwatchFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 
 export default function RecipeItem() {
-  const allRecipes = useLoaderData() || [];
+  const [allRecipes, setAllRecipes] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/recipe")
+      .then(res => setAllRecipes(res.data))
+      .catch(err => console.error(err));
+  }, []);
 
   return (
     <div className="card-container">
